@@ -1,6 +1,50 @@
 
 $(document).ready(function(){
- 
+
+    let fileCatcher = document.getElementById('file-catcher');
+    let fileInput = document.getElementById('file-input');
+    let fileListDisplay = document.getElementById('file-list-display');
+
+    
+
+    fileCatcher.addEventListener('submit', function (evnt) {
+        evnt.preventDefault();
+        let file = fileInput.files[0];
+        sendFile(file);
+       
+    });
+
+   
+    sendFile = (file) => {
+
+       let formData = new FormData();
+          
+       formData.append('file', file);
+        
+        
+        $.ajax({
+            url: 'http://localhost:61214/api/FileUpload',
+            type: 'POST',
+            dataType: 'json',
+            contentType: false, 
+            processData: false,
+            data: formData
+        })
+
+            .done(data => {
+
+                console.log(data);
+                fileListDisplay.innerHTML = '<a href=' + data.filePath + '>link</a>';
+
+            })
+
+            .fail(() => {
+                alert('Desila se greska!');
+            });
+    };
+
+       
+   
 
     $("#saveQuill").click(()=>{
         let delta=quill.getContents();
