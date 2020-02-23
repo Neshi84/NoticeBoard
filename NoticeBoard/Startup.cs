@@ -3,9 +3,11 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Hosting;
 using NoticeBoard.Models;
 using System.Collections.Generic;
+using System.IO;
 
 namespace NoticeBoard
 {
@@ -43,7 +45,14 @@ namespace NoticeBoard
 
             app.UseRouting();
 
-           // app.UseAuthorization();
+            app.UseStaticFiles(); // For the wwwroot folder
+
+            app.UseStaticFiles(new StaticFileOptions
+            {
+                FileProvider = new PhysicalFileProvider(
+                    Path.Combine(Directory.GetCurrentDirectory(),"wwwroot","Uploads")),
+                RequestPath = "/Uploads"
+            });
 
 
             app.UseEndpoints(endpoints =>
