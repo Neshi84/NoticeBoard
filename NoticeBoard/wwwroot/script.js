@@ -34,7 +34,7 @@ $(document).ready(function(){
             .done(data => {
 
                 console.log(data);
-                fileListDisplay.innerHTML = '<a href=' + data.filePath + '>link</a>';
+                fileListDisplay.innerHTML = '<a href="http://localhost:61214/Uploads/' + data.fileName+ '">link</a>';
 
             })
 

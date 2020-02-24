@@ -16,7 +16,10 @@ namespace NoticeBoard.Controllers
         public async Task<IActionResult> PostUploadAsync(IFormFile file)
         {
 
-            string filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "Uploads",file.FileName);
+            var extension=Path.GetExtension(file.FileName);
+            string fileName = Guid.NewGuid().ToString("N")+extension;
+            string filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "Uploads",fileName);
+           
 
             if (file.Length > 0)
             {
@@ -28,10 +31,7 @@ namespace NoticeBoard.Controllers
 
             }
 
-            // Process uploaded files
-            // Don't rely on or trust the FileName property without validation.
-
-            return Ok(new { filePath });
+            return Ok(new { fileName });
         }
 
     }
