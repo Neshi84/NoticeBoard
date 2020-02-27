@@ -1,11 +1,49 @@
 
 $(document).ready(function(){
 
-    let fileCatcher = document.getElementById('file-catcher');
-    let fileInput = document.getElementById('file-input');
-    let fileListDisplay = document.getElementById('file-list-display');
+    const fileCatcher = document.getElementById('file-catcher');
+    const fileInput = document.getElementById('file-input');
+    const fileListDisplay = document.getElementById('file-list-display');
+    const fileTitle = document.getElementById("title");
+    const fileList=document.getElementById("fileList");
+    const showNotices=document.getElementById("notices");
+    let uploadedFiles=[];
+     
 
-    
+    $.ajax({
+        url: 'http://localhost:61214/api/Notices',
+        type: 'GET',
+        contentType: "application/json",
+        dataType: 'json',
+       
+    })
+
+        .done(data => {
+            console.log(data);
+            for (let i = 0; i < data.length; i++) {
+                let cardDiv=document.createElement('div');
+                cardDiv.setAttribute('class','card');
+                let cardHeader=document.createElement('div');
+                cardHeader.setAttribute('class','card-header')
+                let title=document.createElement('h3');
+                title.innerHTML=data[i].title;
+                cardHeader.appendChild(title);
+                cardDiv.appendChild(cardHeader);
+                let editorDiv=document.createElement('div');
+                editorDiv.setAttribute('class','card-body')
+                let quillOutput = new Quill(editorDiv, {});
+                quillOutput.setContents(JSON.parse(data[i].content));
+                cardDiv.appendChild(editorDiv);
+                showNotices.appendChild(cardDiv);
+                
+            }
+            
+
+        })
+
+        .fail(() => {
+            alert('Desila se greska!');
+        });
 
     fileCatcher.addEventListener('submit', function (evnt) {
         evnt.preventDefault();
@@ -16,6 +54,7 @@ $(document).ready(function(){
 
    
     sendFile = (file) => {
+
 
        let formData = new FormData();
           
@@ -33,8 +72,21 @@ $(document).ready(function(){
 
             .done(data => {
 
-                console.log(data);
-                fileListDisplay.innerHTML = '<a href="http://localhost:61214/Uploads/' + data.fileName+ '">link</a>';
+                let file = {
+                    "Title": fileTitle.value,
+                    "Path": data.fileName
+                };
+
+                uploadedFiles.push(file);
+                let listItem=document.createElement('li');
+                listItem.setAttribute('class','list-group-item list-group-item-success')
+                let link=document.createElement('a');
+                link.setAttribute('href',"http://localhost:61214/Uploads/" + data.fileName);
+                link.download=data.fileName;
+                link.innerHTML=data.fileName;               
+                listItem.appendChild(link);
+                fileList.appendChild(listItem);
+                
 
             })
 
@@ -48,11 +100,12 @@ $(document).ready(function(){
 
     $("#saveQuill").click(()=>{
         let delta=quill.getContents();
-
+        console.log(uploadedFiles);
         let sendData = {
             "Title": $("#title").val(),
             "Content": JSON.stringify(delta),
-            "Date": $("#date").val()
+            "Date": $("#date").val(),
+            "UploadedFiles": uploadedFiles
         };
         console.log(sendData);
 
@@ -66,9 +119,7 @@ $(document).ready(function(){
     
             .done(data => {  
                
-              $("#titleOut").text(data.title);
-              $("#dateOut").val(data.date);
-              quillOutput.setContents(JSON.parse(data.content));
+              //logika nakon sačuvanog obaveštenja
                            
            })
     
@@ -80,10 +131,6 @@ $(document).ready(function(){
     var quill = new Quill('#editor', {
 
         theme: 'snow'
-
-    });
-
-    var quillOutput = new Quill('#output', {
 
     });
 

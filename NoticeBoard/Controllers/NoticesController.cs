@@ -24,7 +24,7 @@ namespace NoticeBoard.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Notice>>> GetNotices()
         {
-            return await _context.Notices.ToListAsync();
+            return await _context.Notices.Include(n=>n.UploadedFiles).ToListAsync();
         }
 
         // GET: api/Notices/5

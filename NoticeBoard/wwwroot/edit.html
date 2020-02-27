@@ -1,4 +1,4 @@
-﻿<!doctype html>
+<!doctype html>
 <html lang="en">
 <head>
 
@@ -24,11 +24,40 @@
             </a>
           </nav>
 
+    <div class="input-group-vertical col-4">
 
-    <div id="notices" ></div>
+        <input class="form-control " type="date" id="date" />
+        <input class="form-control" type="text" id="title" placeholder="Naslov..." />
 
     </div>
     
+    <div id="editor">
+
+        <p>Hello World!</p>
+
+        <p>Some initial <strong>bold</strong> text</p>
+
+        <p><br></p>
+
+    </div>
+
+    <button id="saveQuill" class="btn btn-primary">Save</button>
+
+    
+
+    <form id='file-catcher'>
+        <input id='file-title' type='text' placeholder="Naziv dokumenta" required />
+        <input id='file-input' type='file'/>
+        <button type='submit'>
+            Submit
+        </button>
+    </form>
+
+    <div class="list-group col-4" id='file-list-display'>
+        <ul class="list-group" id="fileList"></ul>
+    </div>
+
+ 
    
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>

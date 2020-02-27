@@ -1,3 +1,28 @@
-#editor {
-    height: 300px
+#editor {
+
+    height: 300px
+
 }
+
+li{
+    display: inline-block;
+    word-break:break-all; /* wrap extended text*/
+    border:1px solid red /* demo */
+}
+
+.input-group-vertical {
+    margin-bottom: 10px;
+    
+}
+
+.form-control {
+    margin-top: 10px;
+  }
+
+  .card {
+    margin-top: 20px;
+  }
+
+  .btn{
+      margin-top: 10px;
+  }

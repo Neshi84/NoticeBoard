@@ -18,13 +18,18 @@
 
   <ItemGroup>
     <Folder Include="wwwroot\Uploads\" />
-    <Folder Include="wwwroot\" />
   </ItemGroup>
 
   <ItemGroup>
     <None Include="wwwroot\index.html" />
     <None Include="wwwroot\script.js" />
     <None Include="wwwroot\style.css" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Update="wwwroot\favicon.ico">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
 
 
