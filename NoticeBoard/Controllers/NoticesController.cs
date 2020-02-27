@@ -1,11 +1,10 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using NoticeBoard.Models;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using NoticeBoard.Models;
+using X.PagedList;
 
 namespace NoticeBoard.Controllers
 {
@@ -22,9 +21,11 @@ namespace NoticeBoard.Controllers
 
         // GET: api/Notices
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Notice>>> GetNotices()
+        public async Task<ActionResult<IEnumerable<Notice>>> GetNotices(int page = 0, int pageSize = 5)
         {
-            return await _context.Notices.Include(n=>n.UploadedFiles).ToListAsync();
+            var notices = await _context.Notices.Include(n => n.UploadedFiles).ToPagedListAsync(page, pageSize);
+
+            return Ok(notices);
         }
 
         // GET: api/Notices/5

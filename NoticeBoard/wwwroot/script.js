@@ -11,7 +11,7 @@ $(document).ready(function(){
      
 
     $.ajax({
-        url: 'http://localhost:61214/api/Notices',
+        url: 'http://localhost:61214/api/Notices?page=1&pageSize=10',
         type: 'GET',
         contentType: "application/json",
         dataType: 'json',
