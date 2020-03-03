@@ -3,15 +3,25 @@ $(document).ready(function(){
 
     const fileCatcher = document.getElementById('file-catcher');
     const fileInput = document.getElementById('file-input');
-    const fileListDisplay = document.getElementById('file-list-display');
     const fileTitle = document.getElementById("title");
     const fileList=document.getElementById("fileList");
     const showNotices=document.getElementById("notices");
     let uploadedFiles=[];
      
+    const extractDate = a => {
+        'use strict';
+        var input, day, month, year;
+        input = a.split('T')[0].split('-');
+        console.log(input);
+        day = input[2];
+        month = input[1];
+        year = input[0];
+    
+        return day + '.' + month + '.' + year;
+      };
 
     $.ajax({
-        url: 'http://localhost:61214/api/Notices?page=1&pageSize=10',
+        url: 'http://localhost:61214/api/Notices',
         type: 'GET',
         contentType: "application/json",
         dataType: 'json',
@@ -19,24 +29,32 @@ $(document).ready(function(){
     })
 
         .done(data => {
+            let fragment=document.createDocumentFragment();
             console.log(data);
             for (let i = 0; i < data.length; i++) {
                 let cardDiv=document.createElement('div');
                 cardDiv.setAttribute('class','card');
                 let cardHeader=document.createElement('div');
                 cardHeader.setAttribute('class','card-header')
-                let title=document.createElement('h3');
+                let title=document.createElement('h4');
+                title.setAttribute('class','float-sm-left')
+                let date=document.createElement('h5');
+                date.setAttribute('class','float-sm-right');
+                date.innerHTML=extractDate(data[i].date);
                 title.innerHTML=data[i].title;
                 cardHeader.appendChild(title);
+                cardHeader.appendChild(date);
                 cardDiv.appendChild(cardHeader);
                 let editorDiv=document.createElement('div');
                 editorDiv.setAttribute('class','card-body')
                 let quillOutput = new Quill(editorDiv, {});
                 quillOutput.setContents(JSON.parse(data[i].content));
                 cardDiv.appendChild(editorDiv);
-                showNotices.appendChild(cardDiv);
+                fragment.appendChild(cardDiv);
                 
             }
+
+            showNotices.appendChild(fragment);
             
 
         })
@@ -45,21 +63,11 @@ $(document).ready(function(){
             alert('Desila se greska!');
         });
 
-    fileCatcher.addEventListener('submit', function (evnt) {
-        evnt.preventDefault();
-        let file = fileInput.files[0];
-        sendFile(file);
-       
-    });
-
-   
     sendFile = (file) => {
-
 
        let formData = new FormData();
           
-       formData.append('file', file);
-        
+       formData.append('file', file);        
         
         $.ajax({
             url: 'http://localhost:61214/api/FileUpload',
@@ -127,13 +135,6 @@ $(document).ready(function(){
             alert('Desila se greska!');
           });
       });
-
-    var quill = new Quill('#editor', {
-
-        theme: 'snow'
-
-    });
-
 
 
 });

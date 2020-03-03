@@ -21,7 +21,7 @@ namespace NoticeBoard.Controllers
 
         // GET: api/Notices
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Notice>>> GetNotices(int page = 0, int pageSize = 5)
+        public async Task<ActionResult<IEnumerable<Notice>>> GetNotices(int page = 1, int pageSize = 10)
         {
             var notices = await _context.Notices.Include(n => n.UploadedFiles).ToPagedListAsync(page, pageSize);
 
