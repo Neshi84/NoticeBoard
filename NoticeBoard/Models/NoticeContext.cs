@@ -15,5 +15,6 @@ namespace NoticeBoard.Models
 
         public DbSet<Notice> Notices { get; set; }
         public DbSet<UploadedFile> UploadedFiles { get; set; }
+        public DbSet<NoticeType> NoticeTypes { get; set; }
     }
 }
