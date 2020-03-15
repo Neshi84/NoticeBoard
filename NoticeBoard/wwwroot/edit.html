@@ -8,7 +8,7 @@
     <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <link rel="stylesheet" href="style.css">
-    <title>Quill</title>
+    <title>Portal</title>
 
 </head>
 
@@ -22,40 +22,57 @@
               <img src="/images/Logo.png" width="40" height="40" class="d-inline-block align-top" alt="">
               Portal Doma zdravlja
             </a>
-          </nav>
+        </nav>
 
-    <div class="input-group-vertical col-4">
+        <div class="form-row mb-3">
 
-        <input class="form-control " type="date" id="date" />
-        <input class="form-control" type="text" id="title" placeholder="Naslov..." />
+            <div class="col-2">
 
-    </div>
+                <input class="form-control" type="date" id="date" />
+
+            </div>
+
+            <div class="col">
+
+                <input class="form-control" type="text" id="title" placeholder="Naslov..." />
+
+            </div>
+
+        </div>
+
+
+        <div id="editor"></div>
     
-    <div id="editor">
-
-        <p>Hello World!</p>
-
-        <p>Some initial <strong>bold</strong> text</p>
-
-        <p><br></p>
-
-    </div>
-
-    <button id="saveQuill" class="btn btn-primary">Save</button>
-
+        <button id="saveQuill" class="btn btn-primary">Save</button>
+      
     
+        <form id='file-catcher'>
+    
+            <div class="form-group">
+    
+                <input class="form-control" id='file-title' type='text' placeholder="Naziv dokumenta" required />
+                
+            </div>
+    
+            <div class="form-group">
+    
+                <input id='file-input' type="file" class="form-control-file"></input>
+               
+                
+            </div>
+    
+            <button class="btn btn-primary" id="fileButton" type='submit'>Sacuvaj</button>
+            
+        </form>
+    
+        <div class="list-group col-4" id='file-list-display'>
+            <ul class="list-group" id="fileList"></ul>
+        </div>
 
-    <form id='file-catcher'>
-        <input id='file-title' type='text' placeholder="Naziv dokumenta" required />
-        <input id='file-input' type='file'/>
-        <button type='submit'>
-            Submit
-        </button>
-    </form>
-
-    <div class="list-group col-4" id='file-list-display'>
-        <ul class="list-group" id="fileList"></ul>
     </div>
+ 
+    
+  
 
  
    
@@ -63,7 +80,7 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
     <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
     <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
-    <script src="script.js"></script>
+    <script src="edit.js"></script>
 
 </body>
 
