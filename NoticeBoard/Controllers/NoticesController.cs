@@ -25,7 +25,7 @@ namespace NoticeBoard.Controllers
         {
             var notices = await _context.Notices.Include(n => n.UploadedFiles).ToPagedListAsync(page, pageSize);
 
-            return Ok(notices);
+            return Ok(notices.OrderByDescending(n=>n.Id));
         }
 
         // GET: api/Notices/5
