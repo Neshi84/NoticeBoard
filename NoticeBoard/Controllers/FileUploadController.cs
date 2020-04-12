@@ -13,7 +13,7 @@ namespace NoticeBoard.Controllers
     {
 
         [HttpPost]
-        public async Task<IActionResult> PostUploadAsync(IFormFile file)
+        public async Task<IActionResult> PostAsync(IFormFile file)
         {
 
             var extension=Path.GetExtension(file.FileName);
@@ -32,6 +32,21 @@ namespace NoticeBoard.Controllers
             }
 
             return Ok(new { fileName });
+        }
+
+        [HttpDelete]
+        public IActionResult Delete(string fileName)
+        {
+            string filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "Uploads", fileName);
+
+            if (System.IO.File.Exists(filePath))
+            {
+                System.IO.File.Delete(filePath);
+            }
+
+            return Ok();
+
+
         }
 
     }

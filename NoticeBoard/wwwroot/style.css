@@ -1,28 +1,42 @@
 #editor {
-
-    height: 300px
-
-}
-
-li{
-    display: inline-block;
-    word-break:break-all; /* wrap extended text*/
-    border:1px solid red /* demo */
+  height: 300px;
 }
 
 .input-group-vertical {
-    margin-bottom: 10px;
-    
+  margin-bottom: 10px;
 }
 
+
 .form-control {
-    margin-top: 10px;
-  }
+  margin-top: 10px;
+}
 
-  .card {
-    margin-top: 20px;
-  }
+.card {
+  margin-top: 20px;
+}
 
-  .btn{
-      margin-top: 10px;
-  }
+.btn {
+  margin-top: 10px;
+}
+
+.list-group-item {
+  margin-top: 10px;
+  display: flex;
+  padding:5px;
+  flex: 1;
+  justify-content: space-between;
+}
+
+.link{
+  white-space: nowrap;
+  overflow: hidden;
+  white-space: nowrap;
+
+}
+
+.trashBtn{
+  margin-left: 5px;
+  border: 0px;
+  background-color:#c3e6cb;
+}
+
