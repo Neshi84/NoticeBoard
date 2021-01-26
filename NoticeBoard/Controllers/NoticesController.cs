@@ -42,9 +42,7 @@ namespace NoticeBoard.Controllers
             return notice;
         }
 
-        // PUT: api/Notices/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for
-        // more details see https://aka.ms/RazorPagesCRUD.
+        // PUT: api/Notices/5       
         [HttpPut("{id}")]
         public async Task<IActionResult> PutNotice(int id, Notice notice)
         {
@@ -75,8 +73,6 @@ namespace NoticeBoard.Controllers
         }
 
         // POST: api/Notices
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for
-        // more details see https://aka.ms/RazorPagesCRUD.
         [HttpPost]
         public async Task<ActionResult<Notice>> PostNotice(Notice notice)
         {
