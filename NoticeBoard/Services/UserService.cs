@@ -51,6 +51,11 @@ namespace NoticeBoard.Services
             throw new NotImplementedException();
         }
 
+        public bool UserExists(string userName)
+        {
+            var user = _context.Users.SingleOrDefault(x => x.UserName == userName);
+            return user != null;
+        }
         public User GetById(int id)
         {
             throw new NotImplementedException();

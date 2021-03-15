@@ -15,5 +15,6 @@ namespace NoticeBoard.Services
         User Create(User user, string password);
         void Update(User user, string password = null);
         void Delete(int id);
+        bool UserExists(string userName);
     }
 }

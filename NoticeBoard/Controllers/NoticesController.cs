@@ -23,7 +23,11 @@ namespace NoticeBoard.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Notice>>> GetNotices(int page = 1, int pageSize = 10)
         {
-            var notices = await _context.Notices.Include(n => n.UploadedFiles).ToPagedListAsync(page, pageSize);
+            var notices = await _context.Notices
+                .Include(n => n.UploadedFiles)
+                .Include(u => u.User)
+                .Include(t => t.NoticeType)
+                .ToPagedListAsync(page, pageSize);
 
             return Ok(notices);
         }
@@ -42,7 +46,7 @@ namespace NoticeBoard.Controllers
             return notice;
         }
 
-        // PUT: api/Notices/5       
+        // PUT: api/Notices/5
         [HttpPut("{id}")]
         public async Task<IActionResult> PutNotice(int id, Notice notice)
         {

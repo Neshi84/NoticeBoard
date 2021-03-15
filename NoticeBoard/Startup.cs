@@ -89,8 +89,7 @@ namespace NoticeBoard
 
             app.UseAuthentication();
             app.UseAuthorization();
-
-            app.UseStaticFiles(); // For the wwwroot folder
+          
 
             app.UseStaticFiles(new StaticFileOptions
             {

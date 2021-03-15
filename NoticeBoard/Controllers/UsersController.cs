@@ -75,7 +75,7 @@ namespace NoticeBoard.Controllers
 
         // GET: api/Users
         [HttpGet]
-        [Authorize(Roles = "Admin")]
+       // [Authorize(Roles = "Admin")]
         public async Task<ActionResult<IEnumerable<User>>> GetUsers()
         {
             return await _context.Users.Include(r=>r.UserRole).ThenInclude(u=>u.Roles).ToListAsync();
@@ -95,9 +95,7 @@ namespace NoticeBoard.Controllers
             return user;
         }
 
-        // PUT: api/Users/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for
-        // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
+        // PUT: api/Users/5       
         [HttpPut("{id}")]
         public async Task<IActionResult> PutUser(int id, User user)
         {
@@ -127,12 +125,15 @@ namespace NoticeBoard.Controllers
             return NoContent();
         }
 
-        // POST: api/Users
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for
-        // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
+        // POST: api/Users      
         [HttpPost]
         public async Task<ActionResult<User>> PostUser(User user)
         {
+            
+            if (_userService.UserExists(user.UserName))
+            {
+                return BadRequest(new { msg = "User name taken!" });
+            }
             _context.Users.Add(user);
             await _context.SaveChangesAsync();
 
