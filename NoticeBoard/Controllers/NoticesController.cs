@@ -1,5 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using NoticeBoard.DTO;
 using NoticeBoard.Models;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,15 +15,17 @@ namespace NoticeBoard.Controllers
     public class NoticesController : ControllerBase
     {
         private readonly NoticeContext _context;
+        private readonly IMapper _mapper;
 
-        public NoticesController(NoticeContext context)
+        public NoticesController(NoticeContext context, IMapper mapper)
         {
             _context = context;
+            _mapper = mapper;
         }
 
         // GET: api/Notices
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Notice>>> GetNotices(int page = 1, int pageSize = 10)
+        public async Task<ActionResult<IEnumerable<NoticeDTO>>> GetNotices(int page = 1, int pageSize = 10)
         {
             var notices = await _context.Notices
                 .Include(n => n.UploadedFiles)
@@ -29,7 +33,10 @@ namespace NoticeBoard.Controllers
                 .Include(t => t.NoticeType)
                 .ToPagedListAsync(page, pageSize);
 
-            return Ok(notices);
+
+            IEnumerable<NoticeDTO> noticesDTO = _mapper.Map<IEnumerable< Notice > ,IEnumerable<NoticeDTO>>(notices);
+
+            return Ok(noticesDTO);
         }
 
         // GET: api/Notices/5

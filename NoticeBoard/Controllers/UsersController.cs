@@ -5,6 +5,7 @@ using System.Linq;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
+using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -25,12 +26,14 @@ namespace NoticeBoard.Controllers
         private IUserService _userService;
         private readonly IConfiguration _configuration;
         private readonly NoticeContext _context;
+        
 
         public UsersController(NoticeContext context, IUserService userService, IConfiguration configuration)
         {
             _userService = userService;
             _context = context;
             _configuration = configuration;
+           
         }
 
         [HttpPost("Authenticate")]
@@ -67,8 +70,7 @@ namespace NoticeBoard.Controllers
             {
                 user.Id,
                 user.UserName,
-                user.Name,
-                user.LastName,
+                user.FullName,
                 Token = tokenString
             });
         }

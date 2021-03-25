@@ -10,6 +10,14 @@ namespace NoticeBoard.Models
         public string UserName { get; set; }
         public string Password { get; set; }
 
+        public string FullName
+        {
+            get
+            {
+                return $"{this.Name} {this.LastName}";
+            }
+        }
+
         public IEnumerable<UserRole> UserRole { get; set; }
 
 
